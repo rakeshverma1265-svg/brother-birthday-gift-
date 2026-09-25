@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="hi" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Subhash Verma Bhai! 🎂🎉</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                        },
+                        sunset: {
+                            500: '#ff6b6b',
+                            600: '#ee5253',
+                            700: '#ca3e47'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Georgia', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Great+Vibes&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Canvas Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        .font-cursive {
+            font-family: 'Great Vibes', cursive;
+        }
+
+        /* Glassmorphism styling */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .glass-card-dark {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Candle flame flickering animation */
+        @keyframes flicker {
+            0%, 100% { transform: scale(1) rotate(-2deg); opacity: 0.9; }
+            50% { transform: scale(1.15) rotate(2deg); opacity: 1; filter: drop-shadow(0 0 10px #f59e0b); }
+        }
+
+        .flame {
+            animation: flicker 0.6s infinite ease-in-out;
+            transform-origin: center bottom;
+        }
+
+        /* Floating effect */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(2deg); }
+        }
+
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        /* Background gradient mesh */
+        .bg-sunset-gradient {
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 35%, #31103f 70%, #451225 100%);
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d97706;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body class="bg-sunset-gradient text-slate-100 min-h-screen flex flex-col font-sans overflow-x-hidden relative selection:bg-amber-500 selection:text-white">
+
+    <!-- Background Canvas for Stars & Floating Sparkles -->
+    <canvas id="starCanvas" class="fixed inset-0 pointer-events-none z-0"></canvas>
+
+    <!-- Floating Audio Control Widget -->
+    <div class="fixed top-4 right-4 z-50 flex items-center gap-2 bg-slate-900/90 backdrop-blur-md border border-amber-500/40 px-4 py-2 rounded-full shadow-2xl">
+        <button id="musicToggleBtn" onclick="toggleAudio()" class="text-amber-400 hover:text-amber-300 transition-colors flex items-center gap-2 text-sm font-semibold">
+            <i id="musicIcon" class="fas fa-music animate-spin" style="animation-duration: 3s;"></i>
+            <span id="musicText">Play Song</span>
+        </button>
+        
+        <!-- Local Song Upload Input Header -->
+        <label title="Upload Local MP3 Song" class="cursor-pointer bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 text-xs px-2.5 py-1 rounded-full border border-amber-500/40 transition flex items-center gap-1">
+            <i class="fas fa-upload"></i> Local Track
+            <input type="file" id="headerAudioUploader" accept="audio/*" class="hidden" onchange="handleHeaderAudioUpload(event)">
+        </label>
+
+        <!-- Background Music Element -->
+        <audio id="bgAudio" loop pre-load="auto">
+            <source id="audioSource" src="C:\Users\rakes\Downloads\Subhash_Birthday\birthday-song.mp3.mp3" type="audio/mp3">
+        </audio>
+    </div>
+
+    <!-- MAIN CONTAINER -->
+    <main class="relative z-10 flex-grow container mx-auto px-4 py-8 max-w-6xl space-y-16">
+
+        <!-- SECTION 1: HERO BANNER -->
+        <section class="text-center space-y-6 pt-10 relative">
+            <div class="inline-block px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-sm font-medium tracking-wide mb-2 animate-bounce">
+                🎉 Today is a Very Special Day! ✨
+            </div>
+            
+            <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-orange-500 leading-tight">
+                Happy Birthday <br class="sm:hidden"/>
+                <span id="heroBhaiName" class="font-serif italic text-white drop-shadow-[0_5px_5px_rgba(0,0,0,0.8)]">Subhash Verma</span> Bhai! 🎂
+            </h1>
+
+            <p class="max-w-2xl mx-auto text-slate-300 text-base sm:text-lg leading-relaxed">
+                Aap sirff mere bade bhai nahi, balki meri har mushkil me sahi raasta dikhane wale mere sabse bade mentor ho! ❤️
+            </p>
+
+            <div class="flex flex-wrap justify-center gap-4 pt-4">
+                <a href="#cakeSection" class="bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-bold px-8 py-3.5 rounded-full shadow-lg shadow-orange-500/20 transition hover:scale-105 active:scale-95 flex items-center gap-2">
+                    <i class="fas fa-birthday-cake"></i> Cut The Cake
+                </a>
+                <a href="#wishesSection" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 font-semibold px-8 py-3.5 rounded-full border border-slate-700 transition hover:scale-105 active:scale-95 flex items-center gap-2">
+                    <i class="fas fa-heart text-red-400"></i> Read Wishes
+                </a>
+            </div>
+        </section>
+
+
+        <!-- SECTION 2: PHOTO GALLERY & MEMORIES -->
+        <section class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center bg-slate-900/60 p-6 sm:p-10 rounded-3xl border border-amber-500/20 shadow-2xl backdrop-blur-xl">
+            <!-- Photo Frame Column -->
+            <div class="md:col-span-5 flex flex-col items-center justify-center space-y-4">
+                <div class="relative group">
+                    <!-- Glowing Border Effect -->
+                    <div class="absolute -inset-1 bg-gradient-to-r from-amber-500 to-orange-500 rounded-3xl blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-pulse"></div>
+                    
+                    <!-- Frame Container -->
+                    <div class="relative w-64 h-80 sm:w-72 sm:h-96 rounded-2xl overflow-hidden border-4 border-amber-400/80 bg-slate-950 shadow-2xl">
+                        <img id="mainBhaiPhoto" 
+                             src="C:\Users\rakes\Downloads\Subhash_Birthday\Gemini_Generated_Image_k81hdvk81hdvk81h.png" 
+                             alt="Subhash Verma" 
+                             class="w-full h-full object-cover object-top transition duration-500 group-hover:scale-105"
+                             onerror="this.onerror=null; this.src='https://placehold.co/600x800/1e293b/f59e0b?text=Subhash+Bhai+Photo';" />
+                        
+                        <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent p-4 text-center">
+                            <p class="text-xs uppercase tracking-widest text-amber-400 font-semibold">Bada Bhai • Real Hero</p>
+                            <p id="photoCaption" class="text-white font-bold text-lg">Subhash Verma</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Custom Photo Upload Button -->
+                <label class="cursor-pointer bg-slate-800/90 hover:bg-slate-700 text-xs text-amber-300 font-medium px-4 py-2 rounded-full border border-amber-500/30 transition flex items-center gap-2 hover:shadow-md">
+                    <i class="fas fa-camera"></i> Change Photo
+                    <input type="file" id="photoUploader" accept="image/*" class="hidden" onchange="previewUploadedPhoto(event)">
+                </label>
+            </div>
+
+            <!-- Memory Highlight Column -->
+            <div class="md:col-span-7 space-y-6 text-slate-200">
+                <div class="space-y-2">
+                    <span class="text-amber-400 text-sm font-bold tracking-wider uppercase"><i class="fas fa-star mr-1"></i> Special Birthday Tribute</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white">Always Standing Strong Like A Pillar!</h2>
+                </div>
+
+                <p id="personalMemoriesText" class="text-slate-300 leading-relaxed text-sm sm:text-base italic bg-slate-800/40 p-5 rounded-2xl border-l-4 border-amber-500">
+                    "Aapne hamesha meri har khwahish aur zaroorat ko samjha hai. Chahe kitni bhi mushkil situation ho, aapka bolna ki 'Main hoon na, tu tension mat le' hi mere saare darr khatam kar deta hai. Thank you for always being my shield and guide!"
+                </p>
+
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 text-center pt-2">
+                    <div class="bg-slate-800/50 p-3 rounded-xl border border-slate-700/50">
+                        <i class="fas fa-shield-halved text-2xl text-amber-400 mb-1"></i>
+                        <p class="text-xs text-slate-400">Protector</p>
+                        <p class="text-sm font-bold text-white">Always</p>
+                    </div>
+                    <div class="bg-slate-800/50 p-3 rounded-xl border border-slate-700/50">
+                        <i class="fas fa-compass text-2xl text-orange-400 mb-1"></i>
+                        <p class="text-xs text-slate-400">Guide</p>
+                        <p class="text-sm font-bold text-white">Mentor</p>
+                    </div>
+                    <div class="bg-slate-800/50 p-3 rounded-xl border border-slate-700/50 col-span-2 sm:col-span-1">
+                        <i class="fas fa-handshake text-2xl text-yellow-400 mb-1"></i>
+                        <p class="text-xs text-slate-400">Friendship</p>
+                        <p class="text-sm font-bold text-white">Best Brother</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- SECTION 3: WISHES & SHAYARIS -->
+        <section id="wishesSection" class="space-y-8">
+            <div class="text-center space-y-2">
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Dheer Sari Badhaiyan ✨</h2>
+                <p class="text-slate-400 text-sm sm:text-base">Dil se nikli baatein, Subhash bhai ke liye!</p>
+            </div>
+
+            <!-- Tab Buttons -->
+            <div class="flex justify-center border-b border-slate-800 gap-2 sm:gap-6 text-sm font-semibold">
+                <button onclick="switchTab('emotional')" id="tab-emotional" class="tab-btn pb-3 px-4 text-amber-400 border-b-2 border-amber-400 transition">
+                    <i class="fas fa-heart mr-1"></i> Respectful
+                </button>
+                <button onclick="switchTab('fun')" id="tab-fun" class="tab-btn pb-3 px-4 text-slate-400 hover:text-slate-200 transition">
+                    <i class="fas fa-laugh-beam mr-1"></i> Fun & Masti
+                </button>
+                <button onclick="switchTab('shayari')" id="tab-shayari" class="tab-btn pb-3 px-4 text-slate-400 hover:text-slate-200 transition">
+                    <i class="fas fa-feather-alt mr-1"></i> Special Shayari
+                </button>
+            </div>
+
+            <!-- TAB CONTENT CONTAINER -->
+            <div class="pt-4">
+                <!-- 1. Emotional / Respectful Tab -->
+                <div id="content-emotional" class="tab-content grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="glass-card-dark p-6 rounded-2xl relative group hover:border-amber-500/50 transition">
+                        <p class="text-slate-200 text-base leading-relaxed mb-4">
+                            "Janamdin ki bohot bohot shubhkaamnayein, <span class="bhaiNameText text-amber-400 font-bold">Subhash Verma</span> Bhai! Aap sirf mere bade bhai nahi, balki meri har mushkil me sahi raasta dikhane wale mere sabse bade mentor ho. Aapka hona hi mere liye sabse badi taakat hai. Ishwar aapko hamesha achhi health, khushiyan, aur har mod par kamyabi de."
+                        </p>
+                        <button onclick="copyToClipboard(this)" class="text-xs bg-slate-800 hover:bg-slate-700 text-amber-300 px-3 py-1.5 rounded-lg border border-slate-700 transition flex items-center gap-1.5 ml-auto">
+                            <i class="fas fa-copy"></i> Copy Wish
+                        </button>
+                    </div>
+
+                    <div class="glass-card-dark p-6 rounded-2xl relative group hover:border-amber-500/50 transition">
+                        <p class="text-slate-200 text-base leading-relaxed mb-4">
+                            "To the backbone of our family — Happy Birthday <span class="bhaiNameText text-amber-400 font-bold">Subhash</span> Bhai! 👑 Aapka pyaar aur guidance hamesha mujhe aage badhne ki himmat deta hai. Aapki saari khwahishein is saal puri ho!"
+                        </p>
+                        <button onclick="copyToClipboard(this)" class="text-xs bg-slate-800 hover:bg-slate-700 text-amber-300 px-3 py-1.5 rounded-lg border border-slate-700 transition flex items-center gap-1.5 ml-auto">
+                            <i class="fas fa-copy"></i> Copy Wish
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 2. Fun & Masti Tab -->
+                <div id="content-fun" class="tab-content hidden grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="glass-card-dark p-6 rounded-2xl relative group hover:border-amber-500/50 transition">
+                        <p class="text-slate-200 text-base leading-relaxed mb-4">
+                            "Happy Birthday <span class="bhaiNameText text-amber-400 font-bold">Subhash</span> Bhai! Vaise toh aap mujhe pure saal gyaan dete rehte ho 😜, par aaj ke din aapki har baat sar-aankhon par! Bhagwan kare aapka ye saal blockbuster ho aur party dena mat bhoolna!"
+                        </p>
+                        <button onclick="copyToClipboard(this)" class="text-xs bg-slate-800 hover:bg-slate-700 text-amber-300 px-3 py-1.5 rounded-lg border border-slate-700 transition flex items-center gap-1.5 ml-auto">
+                            <i class="fas fa-copy"></i> Copy Wish
+                        </button>
+                    </div>
+
+                    <div class="glass-card-dark p-6 rounded-2xl relative group hover:border-amber-500/50 transition">
+                        <p class="text-slate-200 text-base leading-relaxed mb-4">
+                            "Partner in crime, guide in life! Wishing you the happiest birthday bro! 🎉🎂 Aaj ke din bas order karo, saara kaam chhota bhai karega (baaki dino ki guarantee nahi hai! 😁)"
+                        </p>
+                        <button onclick="copyToClipboard(this)" class="text-xs bg-slate-800 hover:bg-slate-700 text-amber-300 px-3 py-1.5 rounded-lg border border-slate-700 transition flex items-center gap-1.5 ml-auto">
+                            <i class="fas fa-copy"></i> Copy Wish
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 3. Shayari Tab -->
+                <div id="content-shayari" class="tab-content hidden grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="glass-card-dark p-6 rounded-2xl relative group hover:border-amber-500/50 transition border-l-4 border-l-amber-500">
+                        <p class="text-slate-200 text-base italic leading-relaxed mb-4 font-serif">
+                            "Mera har raasta aasan ho jata hai,<br>
+                            Jab mere bade bhai ka haath mere sar par hota hai.<br>
+                            Khushiyon se bhari rahe aapki zindagi hamesha,<br>
+                            <span class="bhaiNameText text-amber-400 font-bold font-sans">Subhash</span> bhai, aapke bina toh mera har din adhura hota hai! 🎉"
+                        </p>
+                        <button onclick="copyToClipboard(this)" class="text-xs bg-slate-800 hover:bg-slate-700 text-amber-300 px-3 py-1.5 rounded-lg border border-slate-700 transition flex items-center gap-1.5 ml-auto">
+                            <i class="fas fa-copy"></i> Copy Shayari
+                        </button>
+                    </div>
+
+                    <div class="glass-card-dark p-6 rounded-2xl relative group hover:border-amber-500/50 transition border-l-4 border-l-amber-500">
+                        <p class="text-slate-200 text-base italic leading-relaxed mb-4 font-serif">
+                            "Har mushkil me jo dhaal bankar khada rahe,<br>
+                            Jiske aage har dukh chhota aur har sapna bada rahe.<br>
+                            Aise pyaare aur jaan se bhi zyada azeez,<br>
+                            <span class="bhaiNameText text-amber-400 font-bold font-sans">Subhash</span> bhai ko janamdin ki bohot bohot badhai! 🎂❤️"
+                        </p>
+                        <button onclick="copyToClipboard(this)" class="text-xs bg-slate-800 hover:bg-slate-700 text-amber-300 px-3 py-1.5 rounded-lg border border-slate-700 transition flex items-center gap-1.5 ml-auto">
+                            <i class="fas fa-copy"></i> Copy Shayari
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- SECTION 4: INTERACTIVE VIRTUAL CAKE CUTTING -->
+        <section id="cakeSection" class="bg-slate-900/80 rounded-3xl p-8 border border-amber-500/30 text-center space-y-8 shadow-2xl relative overflow-hidden">
+            <div class="space-y-2">
+                <span class="text-amber-400 text-xs font-bold tracking-widest uppercase">Time For Celebration</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Blow Candles & Cut The Cake! 🎂</h2>
+                <p class="text-slate-400 text-sm">Candles par click karein ya button press karke surprise unlock karein!</p>
+            </div>
+
+            <!-- Visual Birthday Cake Graphic -->
+            <div class="relative w-64 h-64 mx-auto flex flex-col items-center justify-end pb-4">
+                
+                <!-- Candles Container -->
+                <div class="flex gap-6 mb-1 z-20">
+                    <!-- Candle 1 -->
+                    <div class="candle-wrapper cursor-pointer" onclick="extinguishCandles()">
+                        <div id="flame1" class="flame w-3 h-5 bg-gradient-to-t from-orange-500 via-amber-400 to-yellow-200 rounded-full mx-auto shadow-[0_0_12px_#f59e0b]"></div>
+                        <div class="w-2.5 h-10 bg-gradient-to-r from-red-400 via-pink-400 to-red-500 rounded-t-sm shadow-md"></div>
+                    </div>
+                    <!-- Candle 2 (Center) -->
+                    <div class="candle-wrapper cursor-pointer" onclick="extinguishCandles()">
+                        <div id="flame2" class="flame w-3.5 h-6 bg-gradient-to-t from-orange-500 via-amber-400 to-yellow-200 rounded-full mx-auto shadow-[0_0_15px_#f59e0b]"></div>
+                        <div class="w-3 h-12 bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-500 rounded-t-sm shadow-md"></div>
+                    </div>
+                    <!-- Candle 3 -->
+                    <div class="candle-wrapper cursor-pointer" onclick="extinguishCandles()">
+                        <div id="flame3" class="flame w-3 h-5 bg-gradient-to-t from-orange-500 via-amber-400 to-yellow-200 rounded-full mx-auto shadow-[0_0_12px_#f59e0b]"></div>
+                        <div class="w-2.5 h-10 bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-500 rounded-t-sm shadow-md"></div>
+                    </div>
+                </div>
+
+                <!-- Cake Layer Top -->
+                <div class="w-48 h-12 bg-gradient-to-r from-amber-200 via-white to-amber-100 rounded-t-2xl shadow-lg border-b-4 border-amber-300 flex items-center justify-center relative overflow-hidden z-10">
+                    <span class="text-xs font-bold text-amber-800 tracking-widest uppercase">Subhash Bhai</span>
+                </div>
+
+                <!-- Cake Layer Middle -->
+                <div class="w-56 h-14 bg-gradient-to-r from-amber-600 via-amber-500 to-amber-700 rounded-t-lg shadow-lg border-b-4 border-amber-800 flex items-center justify-center">
+                    <div class="w-full flex justify-around px-4">
+                        <div class="w-3 h-3 rounded-full bg-red-400 shadow"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-300 shadow"></div>
+                        <div class="w-3 h-3 rounded-full bg-blue-400 shadow"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-400 shadow"></div>
+                    </div>
+                </div>
+
+                <!-- Cake Base Layer -->
+                <div class="w-64 h-16 bg-gradient-to-r from-amber-900 via-amber-800 to-amber-950 rounded-b-2xl shadow-2xl flex items-center justify-center border-t-2 border-amber-700">
+                    <span class="text-xs text-amber-200/60 font-semibold tracking-wider">🎉 HAPPY BIRTHDAY 🎉</span>
+                </div>
+
+                <!-- Cake Stand -->
+                <div class="w-72 h-4 bg-slate-700 rounded-full shadow-2xl border-t border-slate-500"></div>
+            </div>
+
+            <!-- Cut Cake Button -->
+            <div>
+                <button id="cutCakeBtn" onclick="cutTheCake()" class="bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 hover:from-amber-600 hover:to-red-600 text-white text-lg font-bold px-10 py-4 rounded-full shadow-xl shadow-orange-500/30 transition transform hover:scale-105 active:scale-95 animate-pulse">
+                    🎂 Blow Candles & Cut Cake!
+                </button>
+            </div>
+        </section>
+
+
+        <!-- SECTION 5: INTERACTIVE GIFT REVEAL -->
+        <section class="bg-slate-900/60 p-8 rounded-3xl border border-amber-500/20 text-center space-y-6 backdrop-blur-md">
+            <div class="space-y-2">
+                <span class="text-amber-400 text-xs font-bold tracking-widest uppercase">Special Token Of Love</span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Unwrap Your Birthday Gift! 🎁</h2>
+            </div>
+
+            <div class="flex justify-center py-4">
+                <div id="giftBox" onclick="openGift()" class="cursor-pointer group relative transition transform hover:scale-110">
+                    <div id="giftIcon" class="text-7xl sm:text-8xl text-amber-400 drop-shadow-[0_10px_15px_rgba(245,158,11,0.4)] transition group-hover:rotate-6">
+                        🎁
+                    </div>
+                    <p id="giftHintText" class="text-xs text-amber-300 font-semibold mt-2 animate-bounce">Tap to open!</p>
+                </div>
+            </div>
+
+            <!-- Revealed Gift Content (Hidden initially) -->
+            <div id="giftMessageArea" class="hidden max-w-xl mx-auto bg-slate-800/90 border border-amber-400/40 p-6 rounded-2xl shadow-2xl space-y-3 transform transition duration-500 scale-95">
+                <div class="text-2xl">🥇 Best Elder Brother Award</div>
+                <h3 class="text-xl font-bold text-amber-300">Dear Subhash Bhai,</h3>
+                <p class="text-slate-300 text-sm leading-relaxed">
+                    Aapke liye sabse bada gift ye vaada hai ki main hamesha aapke bataye sahi raaste par chalunga aur aapko proud feel karaunga! Aapki har ek khwahish aur dream jaldi se puri ho. Thank you for being the world's best brother! 🥂✨
+                </p>
+            </div>
+        </section>
+
+
+        <!-- SECTION 6: LIVE CUSTOMIZER / EDITOR FORM -->
+        <section class="bg-slate-950 p-6 sm:p-10 rounded-3xl border border-slate-800 space-y-6">
+            <div class="border-b border-slate-800 pb-4 flex flex-col sm:flex-row justify-between sm:items-center gap-2">
+                <div>
+                    <h2 class="text-2xl font-bold text-white flex items-center gap-2">
+                        <i class="fas fa-sliders text-amber-400"></i> Customize Name, Photo & Song
+                    </h2>
+                    <p class="text-slate-400 text-xs sm:text-sm">Apne mobile/laptop se song file upload karein ya text change karein.</p>
+                </div>
+                <span class="text-xs bg-amber-500/10 text-amber-400 border border-amber-500/30 px-3 py-1 rounded-full w-fit">Live Customizer</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Brother's Name Field -->
+                <div class="space-y-2">
+                    <label class="text-xs font-semibold text-slate-300 uppercase tracking-wider">Brother's Name</label>
+                    <input type="text" id="customNameInput" value="Subhash Verma" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-amber-400 transition text-sm">
+                </div>
+
+                <!-- PHOTO UPLOAD BOX -->
+                <div class="space-y-2">
+                    <label class="text-xs font-semibold text-slate-300 uppercase tracking-wider">Change Bhai's Photo</label>
+                    <div class="flex items-center gap-3">
+                        <label class="cursor-pointer bg-slate-800 hover:bg-slate-700 text-amber-400 border border-slate-700 rounded-xl px-4 py-2 text-sm font-medium transition flex items-center gap-2 w-full justify-center">
+                            <i class="fas fa-image"></i> Select Image File
+                            <input type="file" id="formPhotoUploader" accept="image/*" class="hidden" onchange="previewUploadedPhoto(event)">
+                        </label>
+                    </div>
+                </div>
+
+                <!-- SONG UPLOADER & PRESETS (Replacing plain URL box) -->
+                <div class="md:col-span-2 space-y-4 bg-slate-900/80 p-5 rounded-2xl border border-amber-500/20">
+                    <div class="flex items-center justify-between flex-wrap gap-2">
+                        <label class="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-2">
+                            <i class="fas fa-compact-disc text-base"></i> Add Song / Music (MP3 / Audio File)
+                        </label>
+                        <span id="currentSongName" class="text-xs text-slate-400 italic">Default: Birthday Tune</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <!-- Option A: Upload Downloaded Song -->
+                        <div class="space-y-1.5">
+                            <p class="text-xs text-slate-300 font-semibold">Option A: Upload Downloaded Song File (.mp3, .m4a)</p>
+                            <label class="cursor-pointer bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-4 py-2.5 rounded-xl transition flex items-center justify-center gap-2 text-sm w-full">
+                                <i class="fas fa-file-audio"></i> Choose Song File
+                                <input type="file" id="audioFileUploader" accept="audio/*" class="hidden" onchange="handleAudioFileUpload(event)">
+                            </label>
+                        </div>
+
+                        <!-- Option B: Choose Preset Audio -->
+                        <div class="space-y-1.5">
+                            <p class="text-xs text-slate-300 font-semibold">Option B: Choose Ready Track</p>
+                            <select id="presetAudioSelect" onchange="changePresetAudio(this.value)" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2.5 text-white focus:outline-none focus:border-amber-400 transition text-sm">
+                                <option value="https://assets.mixkit.co/music/preview/mixkit-happy-birthday-430.mp3">🎵 Preset 1: Happy Birthday Instrumental</option>
+                                <option value="https://assets.mixkit.co/music/preview/mixkit-game-level-music-689.mp3">🎵 Preset 2: Upbeat Celebration</option>
+                                <option value="https://assets.mixkit.co/music/preview/mixkit-energetic-hip-hop-833.mp3">🎵 Preset 3: Energetic Party Beats</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- IMPORTANT YOUTUBE EXPLANATION NOTE -->
+                    <div class="bg-amber-500/10 border border-amber-500/30 rounded-xl p-3.5 text-xs text-amber-200/90 leading-relaxed space-y-1">
+                        <p class="font-bold text-amber-300 flex items-center gap-1.5">
+                            <i class="fas fa-info-circle text-amber-400"></i> YouTube links direct kyu nahi chalte?
+                        </p>
+                        <p>
+                            YouTube links Security & Browser Policy (CORS) ki wajah se HTML5 audio tags me directly play nahi hote. 
+                            <br><strong>Simple Solution:</strong> Aap YouTube ya kisi site se song ko **.mp3 format me download** kar lein, aur upar **"Choose Song File"** button par click karke upload kar dein. Woh audio website par turant chalne lagega!
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Personal Message Field -->
+                <div class="md:col-span-2 space-y-2">
+                    <label class="text-xs font-semibold text-slate-300 uppercase tracking-wider">Edit Personal Memory Message</label>
+                    <textarea id="customMemoriesInput" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-4 text-white focus:outline-none focus:border-amber-400 transition text-sm">Aapne hamesha meri har khwahish aur zaroorat ko samjha hai. Chahe kitni bhi mushkil situation ho, aapka bolna ki 'Main hoon na, tu tension mat le' hi mere saare darr khatam kar deta hai. Thank you for always being my shield and guide!</textarea>
+                </div>
+            </div>
+
+            <div class="flex justify-end pt-2">
+                <button onclick="applyCustomizations()" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-6 py-2.5 rounded-xl transition flex items-center gap-2 text-sm">
+                    <i class="fas fa-check-circle"></i> Save & Apply Changes
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="relative z-10 border-t border-slate-800 py-6 text-center text-xs text-slate-500">
+        <p>Made with ❤️ for Subhash Verma Bhai's Special Birthday Celebration</p>
+    </footer>
+
+    <!-- CELEBRATION MODAL POPUP -->
+    <div id="celebrationModal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-md hidden p-4">
+        <div class="bg-slate-900 border border-amber-500/50 p-8 rounded-3xl max-w-md w-full text-center space-y-6 shadow-2xl transform transition duration-300 scale-90">
+            <div class="text-6xl animate-bounce">🎉🎂🥳</div>
+            <h3 class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-orange-400">
+                Happy Birthday!
+            </h3>
+            <p id="modalBhaiName" class="text-xl font-bold text-white">Subhash Verma Bhai</p>
+            <p class="text-slate-300 text-sm leading-relaxed">
+                May your birthday be filled with endless joy, delicious cake, and unforgettable moments! Keep shining always! ✨
+            </p>
+            <button onclick="closeModal()" class="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold py-3 rounded-xl shadow-lg transition">
+                Enjoy Celebration!
+            </button>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT CONTROLLERS -->
+    <script>
+        // 1. Particle Background Animation
+        const canvas = document.getElementById('starCanvas');
+        const ctx = canvas.getContext('2d');
+        let stars = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        function createStars() {
+            stars = [];
+            const count = Math.floor((canvas.width * canvas.height) / 8000);
+            for (let i = 0; i < count; i++) {
+                stars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 1.8 + 0.2,
+                    alpha: Math.random(),
+                    speed: Math.random() * 0.02 + 0.005
+                });
+            }
+        }
+        createStars();
+
+        function animateStars() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            stars.forEach(star => {
+                star.alpha += star.speed;
+                if (star.alpha > 1 || star.alpha < 0) {
+                    star.speed = -star.speed;
+                }
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(245, 158, 11, ${Math.abs(star.alpha)})`;
+                ctx.fill();
+            });
+            requestAnimationFrame(animateStars);
+        }
+        animateStars();
+
+        // 2. Audio Controller & Local File Handlers
+        const bgAudio = document.getElementById('bgAudio');
+        const musicIcon = document.getElementById('musicIcon');
+        const musicText = document.getElementById('musicText');
+        const currentSongName = document.getElementById('currentSongName');
+        let isPlaying = false;
+
+        function toggleAudio() {
+            if (isPlaying) {
+                bgAudio.pause();
+                musicIcon.classList.remove('animate-spin');
+                musicText.innerText = 'Play Song';
+                isPlaying = false;
+            } else {
+                bgAudio.play().then(() => {
+                    musicIcon.classList.add('animate-spin');
+                    musicText.innerText = 'Pause Song';
+                    isPlaying = true;
+                }).catch(err => {
+                    console.log("Autoplay prevented or audio load issue:", err);
+                    alert("Click 'Play Song' again to start playback!");
+                });
+            }
+        }
+
+        // Handle Audio File Upload (From Customizer Form)
+        function handleAudioFileUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                loadAudioFile(file);
+            }
+        }
+
+        // Handle Audio File Upload (From Header Widget)
+        function handleHeaderAudioUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                loadAudioFile(file);
+            }
+        }
+
+        // Load & Play Local Audio File via Blob URL
+        function loadAudioFile(file) {
+            const objectURL = URL.createObjectURL(file);
+            bgAudio.src = objectURL;
+            bgAudio.load();
+            currentSongName.innerText = "Custom: " + file.name;
+            isPlaying = false;
+            toggleAudio(); // Start playing immediately
+        }
+
+        // Handle Preset Audio Select
+        function changePresetAudio(url) {
+            bgAudio.src = url;
+            bgAudio.load();
+            currentSongName.innerText = "Preset Audio Selected";
+            isPlaying = false;
+            toggleAudio();
+        }
+
+        // 3. Tab Switcher
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(el => {
+                el.classList.remove('text-amber-400', 'border-b-2', 'border-amber-400');
+                el.classList.add('text-slate-400');
+            });
+
+            document.getElementById(`content-${tabName}`).classList.remove('hidden');
+            const activeTab = document.getElementById(`tab-${tabName}`);
+            activeTab.classList.add('text-amber-400', 'border-b-2', 'border-amber-400');
+            activeTab.classList.remove('text-slate-400');
+        }
+
+        // 4. Copy Wish to Clipboard
+        function copyToClipboard(btnElement) {
+            const card = btnElement.parentElement;
+            const textToCopy = card.querySelector('p').innerText;
+            
+            const tempInput = document.createElement('textarea');
+            tempInput.value = textToCopy;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            const originalHTML = btnElement.innerHTML;
+            btnElement.innerHTML = `<i class="fas fa-check text-green-400"></i> Copied!`;
+            setTimeout(() => {
+                btnElement.innerHTML = originalHTML;
+            }, 2000);
+        }
+
+        // 5. Cake Cutting & Confetti Explosion
+        function extinguishCandles() {
+            document.getElementById('flame1').style.display = 'none';
+            document.getElementById('flame2').style.display = 'none';
+            document.getElementById('flame3').style.display = 'none';
+        }
+
+        function cutTheCake() {
+            extinguishCandles();
+
+            if (typeof confetti === 'function') {
+                const duration = 3 * 1000;
+                const end = Date.now() + duration;
+
+                (function frame() {
+                    confetti({
+                        particleCount: 5,
+                        angle: 60,
+                        spread: 55,
+                        origin: { x: 0 },
+                        colors: ['#f59e0b', '#ee5253', '#10b981', '#3b82f6']
+                    });
+                    confetti({
+                        particleCount: 5,
+                        angle: 120,
+                        spread: 55,
+                        origin: { x: 1 },
+                        colors: ['#f59e0b', '#ee5253', '#10b981', '#3b82f6']
+                    });
+
+                    if (Date.now() < end) {
+                        requestAnimationFrame(frame);
+                    }
+                })();
+            }
+
+            if (!isPlaying) {
+                toggleAudio();
+            }
+
+            setTimeout(() => {
+                document.getElementById('celebrationModal').classList.remove('hidden');
+            }, 600);
+        }
+
+        function closeModal() {
+            document.getElementById('celebrationModal').classList.add('hidden');
+        }
+
+        // 6. Interactive Gift Reveal
+        function openGift() {
+            const giftMsg = document.getElementById('giftMessageArea');
+            const giftIcon = document.getElementById('giftIcon');
+            const giftHint = document.getElementById('giftHintText');
+
+            if (giftMsg.classList.contains('hidden')) {
+                giftMsg.classList.remove('hidden');
+                giftIcon.innerText = '🔓🎉';
+                giftHint.innerText = 'Opened!';
+                if (typeof confetti === 'function') {
+                    confetti({ particleCount: 50, spread: 60, origin: { y: 0.7 } });
+                }
+            }
+        }
+
+        // 7. Preview Uploaded Custom Photo
+        function previewUploadedPhoto(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('mainBhaiPhoto').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // 8. Live Customizer Form Logic
+        function applyCustomizations() {
+            const newName = document.getElementById('customNameInput').value.trim();
+            const newMemory = document.getElementById('customMemoriesInput').value.trim();
+
+            if (newName) {
+                document.getElementById('heroBhaiName').innerText = newName;
+                document.getElementById('photoCaption').innerText = newName;
+                document.getElementById('modalBhaiName').innerText = newName + " Bhai";
+                document.querySelectorAll('.bhaiNameText').forEach(el => el.innerText = newName);
+            }
+
+            if (newMemory) {
+                document.getElementById('personalMemoriesText').innerText = `"${newMemory}"`;
+            }
+
+            alert("Sabhi changes apply ho gaye hain!");
+        }
+    </script>
+</body>
+</html>
